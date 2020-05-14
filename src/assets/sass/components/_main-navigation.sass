@@ -1,0 +1,175 @@
+/* ----- Navigation -------------------- */
+/* -- Main menu --------------------- */
+.burger-menu
+  display: block
+  position: absolute
+  right: 5px
+  top: -7px
+  z-index: 5
+  cursor: pointer
+  padding: 10px
+  user-select: none
+
+.burger-menu-box
+  display: block
+  width: 20px
+  padding: 6px 0
+
+.burger-menu-inner
+  display: block
+  position: relative
+  height: 3px
+  background-color: $secondary-color
+
+  &:before,
+  &:after
+    content: ' '
+    position: absolute
+    left: 0
+    top: -6px
+    height: 3px
+    background-color: $secondary-color
+    width: 100%
+    border-radius: 3px
+
+  &:after
+    top: auto
+    bottom: -6px
+
+.menu-wrapper-fixed
+  position: fixed
+  bottom: 0
+  z-index: 50
+  width: 100%
+  left: 0
+  max-width: 290px
+  transform: translateX(-100%)
+  border-top: 1px solid #e1e1e1
+  transition: transform 0.15s linear
+
+.menu-open-wrapper
+  height: 100%
+  background-color: $page-bg-light
+  overflow: auto
+  -webkit-overflow-scrolling: touch
+
+// opened menu
+#app
+  &:before
+    content: ''
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    height: 0
+    z-index: 30
+
+#app.menu_opened
+  overflow: hidden
+
+  &:before
+    left: 290px
+    height: 100%
+    transition: left 0.4s ease-in-out, background-color 0.4s ease
+    background-color: rgba(#000, 0.5)
+
+  .site-wrapper
+    height: 100%
+
+  .menu-wrapper-fixed
+    transition: transform 0.4s ease-in-out
+    transform: translateX(0)
+
+.menu
+  margin: 0
+  padding: 25px 15px
+  list-style: none
+  border-bottom: 1px solid #e1e1e1
+
+  &:last-child
+    border: none
+
+.menu-item
+  position: relative
+  margin-bottom: 22px
+  padding: 0
+  list-style-type: none
+  font-size: 16px
+  line-height: 20px
+  color: #fff
+
+  &:last-child
+    margin-bottom: 0
+
+  &__link
+    color: $color-menu-link
+    text-decoration: none
+
+    &:hover
+      color: $color-menu-link-hover
+
+    &.active
+      color: $color-menu-link-active
+
+/* Min width 740 pixels */
+@media only screen and (min-width: 740px)
+  .burger-menu
+    right: 20px
+
+  .menu
+    padding-left: 30px
+    padding-right: 30px
+/* end media min width 740 pixels */
+
+
+/* Min width 960 pixels */
+@media only screen and (min-width: 960px)
+  #app.menu_opened
+    overflow: visible
+
+    &::before
+      display: none
+
+    .site-wrapper
+      height: auto
+
+  .menu-wrapper-fixed
+    position: relative
+    height: auto
+    transition: none
+    width: auto
+    top: 0
+    border: none
+    max-width: 100%
+    transform: translateX(0)
+
+  .menu-open-wrapper
+    background: none
+    padding: 0
+    height: auto
+    overflow: visible
+
+  .burger-menu
+    display: none
+
+  .header-nav
+    display: block
+
+  .menu
+    padding: 0
+    border: none
+
+    &_devices
+      display: none
+
+  .menu-item
+    width: auto
+    margin: 0
+    display: inline-block
+    vertical-align: top
+    font-size: 14px
+    line-height: 20px
+    margin-left: 30px
+/* end media min width 960 pixels */
+
+/* ----- END Navigation ---------------- */

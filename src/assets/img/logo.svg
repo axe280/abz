@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 30 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1b4a8a;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M37,20L30,30l7,10H53l7-10L53,20H37Z" transform="translate(-30 -20)"/>
+  <path class="cls-2" d="M50,36H48V26H46V24h6v2H50V36Zm-8,0H40V26H38V24h6v2H42V36Z" transform="translate(-30 -20)"/>
+</svg>
