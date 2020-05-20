@@ -8,121 +8,85 @@
 
       <div class="users-wrap-list">
         <ul class="users-list">
-          <li class="user-item">
+          <li 
+            v-for="user in users"
+            :key="user.id"
+            class="user-item"
+          >
             <div class="user-item-info">
               <div class="user-item__avatar">
-                <!-- <img src="../assets/img/" alt /> -->
+                <img :src="user.photo" />
               </div>
               <div class="user-item__name">
-                <span>Maximillian</span>
+                {{ user.name }}
               </div>
-              <div class="user-item_position">Leading specialist of the Control Department</div>
-              <div class="user-item__contact">
-                <a href="mailto: controldepartment@gmail">controldepartment@gmail</a>
-              </div>
-              <div class="user-item__contact">
-                <a href="tel: +380 50 678 03 24">+380 50 678 03 24</a>
-              </div>
-            </div>
-          </li>
-
-          <li class="user-item">
-            <div class="user-item-info">
-              <div class="user-item__avatar">
-                <!-- <img src="../assets/img/" alt /> -->
-              </div>
-              <div class="user-item__name">
-                <span>Maximillian</span>
-              </div>
-              <div class="user-item_position">Leading specialist of the Control Department</div>
-              <div class="user-item__contact">
-                <a href="mailto: controldepartment@gmail">controldepartment@gmail</a>
+              <div class="user-item_position">
+                {{ user.position }}
               </div>
               <div class="user-item__contact">
-                <a href="tel: +380 50 678 03 24">+380 50 678 03 24</a>
-              </div>
-            </div>
-          </li>
-
-          <li class="user-item">
-            <div class="user-item-info">
-              <div class="user-item__avatar">
-                <!-- <img src="../assets/img/" alt /> -->
-              </div>
-              <div class="user-item__name">
-                <span>Maximillian</span>
-              </div>
-              <div class="user-item_position">Leading specialist of the Control Department</div>
-              <div class="user-item__contact">
-                <a href="mailto: controldepartment@gmail">controldepartment@gmail</a>
+                <a :href="`mailto: ${user.email}`">
+                  {{ user.email }}
+                </a>
               </div>
               <div class="user-item__contact">
-                <a href="tel: +380 50 678 03 24">+380 50 678 03 24</a>
-              </div>
-            </div>
-          </li>
-
-          <li class="user-item">
-            <div class="user-item-info">
-              <div class="user-item__avatar">
-                <!-- <img src="../assets/img/" alt /> -->
-              </div>
-              <div class="user-item__name">
-                <span>Maximillian</span>
-              </div>
-              <div class="user-item_position">Leading specialist of the Control Department</div>
-              <div class="user-item__contact">
-                <a href="mailto: controldepartment@gmail">controldepartment@gmail</a>
-              </div>
-              <div class="user-item__contact">
-                <a href="tel: +380 50 678 03 24">+380 50 678 03 24</a>
-              </div>
-            </div>
-          </li>
-
-          <li class="user-item">
-            <div class="user-item-info">
-              <div class="user-item__avatar">
-                <!-- <img src="../assets/img/" alt /> -->
-              </div>
-              <div class="user-item__name">
-                <span>Maximillian</span>
-              </div>
-              <div class="user-item_position">Leading specialist of the Control Department</div>
-              <div class="user-item__contact">
-                <a href="mailto: controldepartment@gmail">controldepartment@gmail</a>
-              </div>
-              <div class="user-item__contact">
-                <a href="tel: +380 50 678 03 24">+380 50 678 03 24</a>
-              </div>
-            </div>
-          </li>
-
-          <li class="user-item">
-            <div class="user-item-info">
-              <div class="user-item__avatar">
-                <!-- <img src="../assets/img/" alt /> -->
-              </div>
-              <div class="user-item__name">
-                <span>Maximillian</span>
-              </div>
-              <div class="user-item_position">Leading specialist of the Control Department</div>
-              <div class="user-item__contact">
-                <a href="mailto: controldepartment@gmail">controldepartment@gmail</a>
-              </div>
-              <div class="user-item__contact">
-                <a href="tel: +380 50 678 03 24">+380 50 678 03 24</a>
+                <a :href="`tel: ${user.phone}`">
+                  {{ user.phone }}
+                </a>
               </div>
             </div>
           </li>
         </ul>
 
-        <button class="btn" type="button">Show more</button>
+        <button 
+          :style="{ display: !showMoreButton ? 'none' : ''}"
+          @click="showMore"
+          class="btn"
+          type="button"
+        >Show more</button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-export default {};
+import request from '../api'
+
+export default {
+  data() {
+    return {
+      showMoreButton: true,
+      page: null,
+      count: null,
+      users: []
+    }
+  },
+
+  methods: {
+    async showMore() {
+      this.page = this.page + 1;
+
+      const data = await request(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}`);
+
+      if (data.success){
+        data.users.forEach(user => {
+          this.users.push(user);
+        });
+      } else {
+        this.page = this.page - 1;
+      }
+      
+      if (data.total_pages === this.page) {
+        this.showMoreButton = false;
+      }
+    }
+  },
+
+  async mounted() {
+    const data = await request(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=5`);
+
+    this.count = data.count;
+    this.page = data.page;
+    this.users = data.users;
+  }
+};
 </script>
