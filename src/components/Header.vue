@@ -8,7 +8,10 @@
       </div>
 
       <div class="head-menu">
-        <div @click="$emit('menuOpen')" class="burger-menu">
+        <div
+          @click="openMenu"
+          class="burger-menu"
+        >
           <div class="burger-menu-box">
             <div class="burger-menu-inner"></div>
           </div>
@@ -77,3 +80,13 @@
     </div>
   </header>
 </template>
+
+<script>
+import { mapMutations } from 'vuex'
+
+export default {
+  methods: {
+    ...mapMutations(['openMenu'])
+  }
+}
+</script>

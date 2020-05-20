@@ -1,9 +1,11 @@
 <template>
-  <div id="app" @click.self="menuIsOpen = false" :class="menuIsOpen ? 'menu_opened' : ''">
+  <div 
+    id="app"
+    @click.self="closeMenu"
+    :class="isMenuOpen ? 'menu_opened' : ''"
+  >
     <div class="site-wrapper">
-      <!-- header -->
-      <header-page @menuOpen="menuIsOpen = true"></header-page>
-      <!-- end header -->
+      <header-page></header-page>
 
       <main class="main">
         <main-banner></main-banner>
@@ -24,6 +26,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 import HeaderPage from "./components/Header.vue";
 import MainBanner from "./components/MainBanner.vue";
 import Acquainted from "./components/Acquainted.vue";
@@ -40,10 +44,12 @@ export default {
     FormComponent
   },
 
-  data() {
-    return {
-      menuIsOpen: false
-    };
+  computed: {
+    ...mapGetters(['isMenuOpen'])
+  },
+
+  methods: {
+    ...mapMutations(['closeMenu'])
   }
 };
 </script>
