@@ -1,0 +1,57 @@
+.users-section
+  padding: 75px 0 80px
+  background-color: $page-bg-cream
+
+.users-wrap-list
+  text-align: center
+
+.user-item
+  &__avatar
+    width: 70px
+    height: 70px
+    margin: 0 auto 15px
+    overflow: hidden
+    border-radius: 50%
+    border: 1px solid #fff
+    background-image: url('../img/photo-cover.svg')
+    background-size: 100% 100%
+
+    img
+      vertical-align: top
+
+  &__name
+    font-size: $site-h2-size
+    font-size: $site-h2-line-h
+    margin-bottom: 15px
+
+  &__contact
+    a
+      color: $site-text-color
+      text-decoration: none
+
+      &:hover
+        text-decoration: underline
+
+.user-item-info
+  max-width: 220px
+  margin: 0 auto 35px
+
+// /* Min width 740 pixels */
+@media only screen and (min-width: 740px)
+  .users-section
+    padding: 110px 0 120px
+
+  .users-list
+    display: flex
+    flex-wrap: wrap
+
+  .user-item
+    width: 33.3333%
+    margin: 20px 0 35px
+// /* end media min width 740 pixels */
+
+// /* Min width 960 pixels */
+@media only screen and (min-width: 960px)
+  .users-section
+    padding: 152px 0 160px
+// /* end media min width 960 pixels */

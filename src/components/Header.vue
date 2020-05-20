@@ -1,21 +1,14 @@
 <template>
   <header class="header" id="header">
     <div class="container">
-
       <div class="logo">
         <a href="/">
-          <div class="logo__image">
-            <img src="../assets/img/logo.svg" alt="logo"/>
-          </div>
-          <div class="logo__name">testtask</div>
+          <img src="../assets/img/logo.svg" alt="logo" />
         </a>
       </div>
 
       <div class="head-menu">
-        <div 
-          @click="$emit('menuOpen')"
-          class="burger-menu"
-        >
+        <div @click="$emit('menuOpen')" class="burger-menu">
           <div class="burger-menu-box">
             <div class="burger-menu-inner"></div>
           </div>
@@ -81,13 +74,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </header>
 </template>
-
-<script>
-export default {
-
-}
-</script>

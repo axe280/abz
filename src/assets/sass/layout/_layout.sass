@@ -1,8 +1,8 @@
-/* ----- Page structure ---------------- */
+//  /* ----- Page structure ---------------- */
 .clear
   clear: both
 
-.group:after 
+.group:after
   content: "."
   clear: both
   display: block
@@ -23,48 +23,44 @@ html, body
   overflow: hidden
   flex: 1 0 auto
 
+.seciton-header
+  text-align: center
+  margin-bottom: 30px
+
+  .title-site
+    margin-bottom: 10px
+
+  p
+    max-width: 470px
+    margin: 0 auto
+
 .footer
   flex-shrink: 0
+  padding: 15px 0
+  text-align: center
+  border-top: 1px solid #ececec
+  line-height: 30px
 
 .container
   padding-left: 15px
   padding-right: 15px
 
-.main
-  padding: 50px 0
+.hidden-mobile
+  display: none
 
-
-/* Min width 740 pixels */
+//  /* Min width 740 pixels */
 @media only screen and (min-width: 740px)
-  .container 
+  .container
     padding-left: 30px
     padding-right: 30px
     max-width: 1024px
     margin-left: auto
     margin-right: auto
-/* end media min width 740 pixels */
 
+  .hidden-mobile
+    display: block
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  .seciton-header
+    .title-site
+      margin-bottom: 15px
+//  /* end media min width 740 pixels */

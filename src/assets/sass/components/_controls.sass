@@ -1,4 +1,4 @@
-/* ----- Controls styles ----------------- */
+//  /* ----- Controls styles ----------------- */
 .btn
   position: relative
   display: inline-block
@@ -41,14 +41,13 @@
     &:hover
       color: $primary-btn-hover
 
-
 // inputs
 .placeholder
-  color: #37393A
+  color: #b2b9c0
 
 input,
 textarea
-  +placeholder-color(#37393A)
+  +placeholder-color(#b2b9c0)
 
 ::-webkit-contacts-auto-fill-button
   opacity: 0
@@ -66,10 +65,8 @@ input[type="search"]
   width: 100%
   padding: 0 15px
   border: 1px solid rgba(#444, 0.3)
-
   font: 16px $site-font-family, Arial, sans-serif
-
-  color: #444
+  color: $site-title-color
   background-color: #fff
   outline: none
   border-radius: 3px
@@ -89,9 +86,14 @@ input[type="search"]
   padding: 10px 15px
   resize: none
 
-
-/* checkbox and radio */
+//  /* checkbox and radio */
 .form-st-radio
+  position: relative
+  padding-left: 25px
+  margin-bottom: 10px
+  font-size: 16px
+  line-height: 20px
+  color: #212529
 
   input
     width: 0
@@ -104,11 +106,11 @@ input[type="search"]
 .fake-control
   position: absolute
   left: 0
-  top: 5px
-  width: 14px
-  height: 14px
+  top: 2px
+  width: 16px
+  height: 16px
   background-color: #fff
-  box-shadow: 0 1px 3px rgba(#000, 0.3)
+  border: 1px solid #afb7bf
 
 .form-st-radio
   .fake-control
@@ -118,27 +120,19 @@ input[type="search"]
       content: ''
       display: none
       position: absolute
-      left: 15%
-      top: 15%
-      width: 70%
-      height: 70%
-      background-color: $secondary-color
+      left: 50%
+      top: 50%
+      margin: -3px 0 0 -3px
+      width: 6px
+      height: 6px
+      background-color: #fff
       border-radius: 50%
+      box-shadow: 1px 1px 1px #0062cb
 
   input:checked + .fake-control
+    border-color: #007bff
+    background-color: #007bff
+
     &::before
       display: block
-/* ----- END controls ------------------- */
-
-
-
-
-
-
-
-
-
-
-
-
-
+//  /* ----- END controls ------------------- */

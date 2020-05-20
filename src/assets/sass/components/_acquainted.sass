@@ -1,0 +1,41 @@
+.acquainted-section
+  padding: 75px 0 65px
+
+.acquainted-info
+  text-align: center
+
+  &__img
+    margin-bottom: 30px
+
+  &__text
+    p
+      text-align: justify
+      margin-bottom: 25px
+
+// /* Min width 740 pixels */
+@media only screen and (min-width: 740px)
+  .acquainted-section
+    padding: 110px 0 100px
+
+    .seciton-header
+      margin-bottom: 65px
+
+  .acquainted-info
+    display: flex
+    justify-content: space-between
+    text-align: left
+
+    &__img
+      min-width: 245px
+      max-width: 245px
+      margin-right: 30px
+// /* end media min width 740 pixels */
+
+// /* Min width 960 pixels */
+@media only screen and (min-width: 960px)
+  .acquainted-info
+    &__img
+      min-width: 363px
+      padding-left: 25px
+      margin-right: 50px
+// /* end media min width 960 pixels */
