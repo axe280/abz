@@ -1,12 +1,14 @@
-export default async function request(url, method = 'GET', data = null) {
+export default async function request(url, method = 'GET', formData = null) {
   try {
 
-    const headers = {}
-    let body
+    let headers = {};
+    let body;
 
-    if (data) {
-      headers['Content-Type'] = 'application/json'
-      body = JSON.stringify(data)
+    if (formData) {
+      headers = {
+        'Token': 'token'
+      };
+      body = formData;
     }
 
     const response = await fetch(url, {
@@ -15,7 +17,7 @@ export default async function request(url, method = 'GET', data = null) {
       body
     })
 
-    return await response.json()
+    return await response.json();
 
   } catch(e) {
 
