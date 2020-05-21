@@ -1,13 +1,16 @@
-import Vue from 'vue'
-import App from './App.vue'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
+import store from './store';
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate)
 
 // SASS
-import './assets/sass/main.sass'
+import './assets/sass/main.sass';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
