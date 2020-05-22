@@ -19,6 +19,7 @@
             <div class="field-item__field">
               <input
                 v-model.trim="$v.name.$model"
+                @input="delayTouch($v.name)"
                 type="text"
                 placeholder="Your name" />
             </div>
@@ -52,6 +53,7 @@
             <div class="field-item__field">
               <input
                 v-model="$v.email.$model"
+                @input="delayTouch($v.email)"
                 type="email"
                 placeholder="Your email" />
             </div>
@@ -190,6 +192,8 @@
 import request from '../api';
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
+const touchMap = new WeakMap();
+
 export default {
   data() {
     return {
@@ -226,8 +230,18 @@ export default {
     },
 
     phoneOnInput(event) {
+      this.delayTouch(this.$v.phone);
+      
       const val = event.target.value;
       this.phone = '+380' + val.slice(4, 13).replace(/\D+/g, '');
+    },
+
+    delayTouch($v) {
+      $v.$reset()
+      if (touchMap.has($v)) {
+        clearTimeout(touchMap.get($v))
+      }
+      touchMap.set($v, setTimeout($v.$touch, 1000))
     },
 
     async submitForm() {
