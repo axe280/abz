@@ -61,24 +61,30 @@ input[type="search"]
 .field-item__field input,
 .field-item__field textarea
   position: relative
-  height: 50px
+  height: 38px
   width: 100%
-  padding: 0 15px
-  border: 1px solid rgba(#444, 0.3)
+  padding: 0 14px
+  border: 1px solid #ced4da
   font: 16px $site-font-family, Arial, sans-serif
   color: $site-title-color
   background-color: #fff
   outline: none
   border-radius: 3px
-
   -webkit-appearance: none
   box-shadow: none
 
-  &:hover
-    border-color: rgba(#444, 0.4)
-
   &:focus
-    border-color: rgba(#444, 0.5)
+    border-color: #80bdff
+    box-shadow: 0 0 0 3px rgba(#80bdff, 0.2)
+
+  &[disabled]
+    color: #767e86
+    background-color: #e9ecef
+
+.form-group_error
+  .field-item__field input
+    border-color: #db3445
+    box-shadow: 0 0 0 3px rgba(#db3445, 0.2)
 
 .field-item__field textarea
   vertical-align: top
