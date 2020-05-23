@@ -1,27 +1,21 @@
-export default async function request(url, method = 'GET', formData = null) {
-  try {
+export async function request(url) {
+  const response = await fetch(url);
+  return await response.json();
+}
 
-    let headers = {};
-    let body;
+export async function getTokenApi() {
+  const response = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/token');
+  return await response.json();
+}
 
-    if (formData) {
-      headers = {
-        'Token': 'token'
-      };
-      body = formData;
-    }
+export async function sendFormApi(formData, token) {
+  const response = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Token': token
+    },
+  });
 
-    const response = await fetch(url, {
-      method,
-      headers,
-      body
-    })
-
-    return await response.json();
-
-  } catch(e) {
-
-    console.log(e.message);
-
-  }
+  return response;
 }

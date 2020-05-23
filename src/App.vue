@@ -27,7 +27,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-
+import { getTokenApi } from "./api";
 import HeaderPage from "./components/Header.vue";
 import MainBanner from "./components/MainBanner.vue";
 import Acquainted from "./components/Acquainted.vue";
@@ -45,11 +45,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isMenuOpen'])
+    ...mapGetters(['isMenuOpen', 'getToken'])
   },
 
   methods: {
-    ...mapMutations(['closeMenu'])
+    ...mapMutations(['closeMenu', 'setToken'])
+  },
+
+  async created() {
+    const token = this.getToken;
+
+    if (!token) {
+      const tokenData = await getTokenApi();
+      this.setToken(tokenData);
+    }
   }
 };
 </script>

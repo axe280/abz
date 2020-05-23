@@ -163,6 +163,12 @@
                 placeholder="Upload your photo" />
             </div>
             <div
+              v-if="!$v.file.required"
+              class="field-item__error"
+            >
+              Please add your photo
+            </div>
+            <div
               v-if="!$v.file.typeImage"
               class="field-item__error"
             >
@@ -189,10 +195,13 @@
 </template>
 
 <script>
-import request from '../api';
+import { request, sendFormApi, getTokenApi } from '../api';
+import { mapGetters } from "vuex";
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 const touchMap = new WeakMap();
+const phonePattern = /^[+]{0,1}380([0-9]{9})$/;
+const emailPattern = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 
 export default {
   data() {
@@ -208,6 +217,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['getToken']),
+
     getPositionId() {
       const position = this.positions.find(item => {
         return item.name === this.positionName;
@@ -237,33 +248,55 @@ export default {
     },
 
     delayTouch($v) {
-      $v.$reset()
+      $v.$reset();
       if (touchMap.has($v)) {
-        clearTimeout(touchMap.get($v))
+        clearTimeout(touchMap.get($v));
       }
-      touchMap.set($v, setTimeout($v.$touch, 1000))
+      touchMap.set($v, setTimeout($v.$touch, 1000));
+    },
+
+    createFormData() {
+      let formData = new FormData();
+      formData.append('position_id', this.getPositionId);
+      formData.append('name', this.name);
+      formData.append('email', this.email);
+      formData.append('phone', this.phone);
+      formData.append('photo', this.file);
+
+      return formData;
     },
 
     async submitForm() {
       this.$v.$touch();
 
       if (this.$v.$invalid) {
-        this.submitStatus = 'ERROR'
-      }
+        this.submitStatus = 'ERROR';
+      } else {
+        this.submitStatus = 'OK';
+        const formData = this.createFormData();
+        let token = this.getToken;
+        let response;
 
-      // let formData = new FormData();
-      // formData.append('position_id', this.getPositionId);
-      // formData.append('name', this.name);
-      // formData.append('email', this.email);
-      // formData.append('phone', this.phone);
-      // formData.append('photo', this.file);
+        response = await sendFormApi(formData, token);
+
+        if (response.status === 401) {
+          const newTokenData = await getTokenApi();
+          this.setToken(newTokenData);
+          token = newTokenData.token;
+
+          response = await sendFormApi(formData, token);
+        }
+
+        const responseData = await response.json();
+
+        console.log(responseData);
+      }
     }
   },
 
   async mounted() {
-    const data = await request('https://frontend-test-assignment-api.abz.agency/api/v1/positions');
-
-    this.positions = data.positions;
+    const positionsData = await request('https://frontend-test-assignment-api.abz.agency/api/v1/positions');
+    this.positions = positionsData.positions;
   },
 
   validations: {
@@ -278,16 +311,14 @@ export default {
       minLength: minLength(2),
       maxLength: maxLength(100),
       validateEmail: val => {
-        const pattern = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
-        return pattern.test(String(val).toLowerCase());
+        return emailPattern.test(String(val).toLowerCase());
       }
     },
 
     phone: {
       required,
       validatePhone: val => {
-        const pattern = /^[+]{0,1}380([0-9]{9})$/;
-        return pattern.test(String(val));
+        return phonePattern.test(String(val));
       }
     },
 
@@ -296,6 +327,7 @@ export default {
     },
 
     file: {
+      required,
       typeImage: file => {
         const imgType = 'image/jpeg';
         if (file && file.type !== imgType) {
