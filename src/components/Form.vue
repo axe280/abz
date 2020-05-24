@@ -196,7 +196,7 @@
 
 <script>
 import { request, sendFormApi, getTokenApi } from '../api';
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 const touchMap = new WeakMap();
@@ -229,6 +229,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['openCloseModal', 'setModalData', 'forceRerenderForm', 'forceRerenderUsers', 'setToken']),
+
     setFile(event) {
       this.file = event.target.files[0];
       this.$v.file.$touch();
@@ -289,7 +291,13 @@ export default {
 
         const responseData = await response.json();
 
-        console.log(responseData);
+        if (responseData.success) {
+          this.forceRerenderForm();
+          this.forceRerenderUsers();
+        }
+
+        this.setModalData(responseData);
+        this.openCloseModal(true);
       }
     }
   },

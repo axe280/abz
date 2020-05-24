@@ -4,14 +4,16 @@
     @click.self="closeMenu"
     :class="isMenuOpen ? 'menu_opened' : ''"
   >
+    <modal v-if="isModalOpened"></modal>
+
     <div class="site-wrapper">
       <header-page></header-page>
 
       <main class="main">
         <main-banner></main-banner>
         <acquainted></acquainted>
-        <users></users>
-        <form-component></form-component>
+        <users :key="getUsersReRenderProp"></users>
+        <form-component :key="getFormReRenderProp"></form-component>
       </main>
     </div>
 
@@ -33,6 +35,7 @@ import MainBanner from "./components/MainBanner.vue";
 import Acquainted from "./components/Acquainted.vue";
 import Users from "./components/Users.vue";
 import FormComponent from "./components/Form.vue";
+import Modal from './components/Modal.vue';
 
 export default {
   name: "App",
@@ -41,11 +44,12 @@ export default {
     MainBanner,
     Acquainted,
     Users,
-    FormComponent
+    FormComponent,
+    Modal
   },
 
   computed: {
-    ...mapGetters(['isMenuOpen', 'getToken'])
+    ...mapGetters(['isMenuOpen', 'getToken', 'isModalOpened', 'getFormReRenderProp', 'getUsersReRenderProp'])
   },
 
   methods: {
