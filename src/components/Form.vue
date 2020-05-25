@@ -1,5 +1,5 @@
 <template>
-  <section class="form-section">
+  <section class="form-section" id="formWrapper">
     <div class="container">
       <div class="seciton-header">
         <div class="title-site title-site_h1 text_center">Register to get a work</div>
@@ -157,10 +157,19 @@
           <label class="field-item">
             <div class="field-item__label">Photo</div>
             <div class="field-item__field">
-              <input
-                @change="setFile"
-                type="file"
-                placeholder="Upload your photo" />
+              <div class="custom-file">
+                <div 
+                  :class="{active: file}"
+                  class="custom-file__name"
+                >
+                  {{ file ? file.name : 'Upload your photo' }}
+                </div>
+                <div class="custom-file__btn">Browse</div>
+                <input
+                  @change="setFile"
+                  type="file"
+                  placeholder="Upload your photo" />
+              </div>
             </div>
             <div
               v-if="!$v.file.required"

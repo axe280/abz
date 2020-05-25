@@ -62,13 +62,13 @@ input[type="search"]
   -webkit-appearance: none
 
 .field-item__field input,
-.field-item__field textarea
+.custom-file__name
   position: relative
   height: 38px
   width: 100%
   padding: 0 14px
   border: 1px solid #ced4da
-  font: 16px $site-font-family, Arial, sans-serif
+  font: 14px $site-font-family, Arial, sans-serif
   color: $site-title-color
   background-color: #fff
   outline: none
@@ -84,23 +84,52 @@ input[type="search"]
     color: #767e86
     background-color: #e9ecef
 
+.custom-file
+  position: relative
+  height: 38px
+  cursor: pointer
+
+  &__name
+    padding-right: 120px
+    white-space: nowrap
+    overflow: hidden
+    line-height: 36px
+    color: #b2b9c0
+
+    &.active
+      color: $site-title-color
+
+  &__btn
+    position: absolute
+    right: 0
+    top: 0
+    z-index: 3
+    height: 100%
+    font-size: 14px
+    line-height: 36px
+    border: 1px solid #ced4da
+    padding: 0 16px
+    background-color: #f8f7f5
+    border-radius: 0 3px 3px 0
+
+  input
+    display: none
+
 .form-group_error
-  .field-item__field input
+  .field-item__field input,
+  .custom-file__name
     border-color: #db3445
     box-shadow: 0 0 0 3px rgba(#db3445, 0.2)
 
-.field-item__field textarea
-  vertical-align: top
-  height: 130px
-  padding: 10px 15px
-  resize: none
+  .custom-file__btn
+    border-color: #db3445
 
 //  /* checkbox and radio */
 .form-st-radio
   position: relative
   padding-left: 25px
   margin-bottom: 10px
-  font-size: 16px
+  font-size: 14px
   line-height: 20px
   color: #212529
 
@@ -144,4 +173,15 @@ input[type="search"]
 
     &::before
       display: block
+
+// /* Min width 960 pixels */
+@media only screen and (min-width: 960px)
+  .field-item__field input,
+  .custom-file__name
+    font-size: 16px
+
+  .custom-file
+    &__btn
+      font-size: 16px
+// /* end media min width 960 pixels */
 //  /* ----- END controls ------------------- */

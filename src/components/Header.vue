@@ -22,55 +22,55 @@
             <nav class="header-nav">
               <ul class="menu">
                 <li class="menu-item">
-                  <a class="menu-item__link" href="#">About me</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">About me</a>
                 </li>
                 <li class="menu-item">
-                  <a class="menu-item__link active" href="#">Relationships</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Relationships</a>
                 </li>
                 <li class="menu-item">
-                  <a class="menu-item__link" href="#">Requirements</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Requirements</a>
                 </li>
                 <li class="menu-item">
-                  <a class="menu-item__link" href="#">Users</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Users</a>
                 </li>
                 <li class="menu-item">
-                  <a class="menu-item__link" href="#">Sign Up</a>
-                </li>
-              </ul>
-
-              <ul class="menu menu_devices">
-                <li class="menu-item">
-                  <a class="menu-item__link" href="#">How it works</a>
-                </li>
-                <li class="menu-item">
-                  <a class="menu-item__link" href="#">Partnership</a>
-                </li>
-                <li class="menu-item">
-                  <a class="menu-item__link" href="#">Help</a>
-                </li>
-                <li class="menu-item">
-                  <a class="menu-item__link" href="#">Leave testimonial</a>
-                </li>
-                <li class="menu-item">
-                  <a class="menu-item__link" href="#">Contact us</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Sign Up</a>
                 </li>
               </ul>
 
               <ul class="menu menu_devices">
                 <li class="menu-item">
-                  <a class="menu-item__link" href="#">Articles</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">How it works</a>
                 </li>
                 <li class="menu-item">
-                  <a class="menu-item__link" href="#">Our news</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Partnership</a>
                 </li>
                 <li class="menu-item">
-                  <a class="menu-item__link" href="#">Testimonials</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Help</a>
                 </li>
                 <li class="menu-item">
-                  <a class="menu-item__link" href="#">Licenses</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Leave testimonial</a>
                 </li>
                 <li class="menu-item">
-                  <a class="menu-item__link" href="#">Privacy Policy</a>
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Contact us</a>
+                </li>
+              </ul>
+
+              <ul class="menu menu_devices">
+                <li class="menu-item">
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Articles</a>
+                </li>
+                <li class="menu-item">
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Our news</a>
+                </li>
+                <li class="menu-item">
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Testimonials</a>
+                </li>
+                <li class="menu-item">
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Licenses</a>
+                </li>
+                <li class="menu-item">
+                  <a @click="closeMenu" v-scroll-to="'#formWrapper'" class="menu-item__link" href="">Privacy Policy</a>
                 </li>
               </ul>
             </nav>
@@ -86,7 +86,7 @@ import { mapMutations } from 'vuex';
 
 export default {
   methods: {
-    ...mapMutations(['openMenu'])
+    ...mapMutations(['openMenu', 'closeMenu'])
   }
 }
 </script>

@@ -8,7 +8,11 @@
           class="hidden-mobile"
         >Please be patient, we consider and respond to every application that meets minimum requirements. We look forward to your submission. Good luck! The photo has to scale in the banner area on the different screens</span>
       </p>
-      <button class="btn" type="button">Sing up now</button>
+      <button 
+        v-scroll-to="'#formWrapper'"
+        class="btn"
+        type="button"
+      >Sing up now</button>
     </div>
   </section>
 </template>

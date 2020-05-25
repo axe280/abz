@@ -1,12 +1,18 @@
 .form-section
   padding: 75px 0 80px
 
+  .seciton-header
+    margin-bottom: 27px
+
+  .title-site
+    margin-bottom: 20px
+
 .form
   max-width: 468px
   margin: 0 auto
 
 .form-group
-  margin-bottom: 25px
+  margin-bottom: 20px
 
   &_error
     .field-item__error
@@ -21,14 +27,14 @@
 
 .field-item
   &__label
-    font-size: 16px
-    line-height: 28px
+    font-size: 14px
+    line-height: 24px
     color: $site-title-color
     margin-bottom: 8px
 
   &__info
-    font-size: 12px
-    line-height: 20px
+    font-size: 11px
+    line-height: 16px
     margin-top: 6px
     color: #6c757d
 
@@ -36,7 +42,7 @@
     display: none
 
 .form-st-radio-group
-  margin-top: 20px
+  margin-top: 15px
 
 .form-button-wrap
   text-align: center
@@ -51,5 +57,12 @@
 // /* Min width 960 pixels */
 @media only screen and (min-width: 960px)
   .form-section
-    padding: 158px 0 164px
+    padding: 148px 0 164px
+
+  .field-item
+    &__label
+      font-size: 16px
+    
+    &__info
+      font-size: 12px
 // /* end media min width 960 pixels */

@@ -24,12 +24,30 @@
                 {{ user.position }}
               </div>
               <div class="user-item__contact">
-                <a :href="`mailto: ${user.email}`">
+                <a 
+                  :href="`mailto: ${user.email}`"
+                  :content="user.email"
+                  v-tippy="{
+                    followCursor: 'horizontal',
+                    placement: 'bottom',
+                    animateFill: false,
+                    animation : 'shift-toward'
+                  }"
+                >
                   {{ user.email }}
                 </a>
               </div>
               <div class="user-item__contact">
-                <a :href="`tel: ${user.phone}`">
+                <a 
+                  :href="`tel: ${user.phone}`"
+                  :content="user.phone"
+                  v-tippy="{
+                    followCursor: 'horizontal',
+                    placement: 'bottom',
+                    animateFill: false,
+                    animation : 'shift-toward'
+                  }"
+                >
                   {{ user.phone }}
                 </a>
               </div>
@@ -55,8 +73,8 @@ export default {
   data() {
     return {
       showMoreButton: true,
-      page: null,
-      count: null,
+      page: 1,
+      count: 3,
       users: []
     }
   },
@@ -82,7 +100,11 @@ export default {
   },
 
   async mounted() {
-    const data = await request(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=5`);
+    if (window.innerWidth > 767) {
+      this.count = 6;
+    }
+  
+    const data = await request(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}`);
 
     this.count = data.count;
     this.page = data.page;

@@ -5,6 +5,9 @@
 .users-wrap-list
   text-align: center
 
+.tippy-popper > div
+  max-width: 100% !important
+
 .user-item
   &__avatar
     width: 70px
@@ -20,11 +23,18 @@
       vertical-align: top
 
   &__name
+    overflow: hidden
+    text-overflow: ellipsis
     font-size: $site-h2-size
-    font-size: $site-h2-line-h
-    margin-bottom: 15px
+    line-height: $site-h2-line-h
+    margin-bottom: 10px
 
   &__contact
+    display: block
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+
     a
       color: $site-text-color
       text-decoration: none
@@ -41,6 +51,9 @@
   .users-section
     padding: 110px 0 120px
 
+  .users-wrap-list
+    margin-top: 58px
+
   .users-list
     display: flex
     flex-wrap: wrap
@@ -48,10 +61,16 @@
   .user-item
     width: 33.3333%
     margin: 20px 0 35px
+
+  .user-item-info
+    margin-bottom: 0
 // /* end media min width 740 pixels */
 
 // /* Min width 960 pixels */
 @media only screen and (min-width: 960px)
   .users-section
     padding: 152px 0 160px
+
+  .users-wrap-list
+    margin-top: 56px
 // /* end media min width 960 pixels */
