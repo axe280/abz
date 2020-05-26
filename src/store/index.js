@@ -12,8 +12,8 @@ export default new Vuex.Store({
       title: 'Oops!',
       message: ''
     },
-    componentFormToRerederPoperty: 'componentFormToRerederPopertyKey',
-    componentUsersToRerederPoperty: 'componentUsersToRerederPopertyKey'
+    componentFormToRerederProperty: 'componentFormToRerederPropertyKey',
+    componentUsersToRerederProperty: 'componentUsersToRerederPropertyKey'
   },
 
   getters: {
@@ -21,8 +21,8 @@ export default new Vuex.Store({
     getToken: state => state.token,
     isModalOpened: state => state.modalOpened,
     getModalData: state => state.modalData,
-    getFormReRenderProp: state => state.componentFormToRerederPoperty,
-    getUsersReRenderProp: state => state.componentUsersToRerederPoperty,
+    getFormReRenderProp: state => state.componentFormToRerederProperty,
+    getUsersReRenderProp: state => state.componentUsersToRerederProperty,
   },
 
   mutations: {
@@ -54,11 +54,11 @@ export default new Vuex.Store({
     },
 
     forceRerenderForm(state) {
-      state.componentFormToRerederPoperty += 1;
+      state.componentFormToRerederProperty += 1;
     },
 
     forceRerenderUsers(state) {
-      state.componentUsersToRerederPoperty += 1;
+      state.componentUsersToRerederProperty += 1;
     }
   }
 });

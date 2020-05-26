@@ -10,6 +10,7 @@
 
 .user-item
   &__avatar
+    position: relative
     width: 70px
     height: 70px
     margin: 0 auto 15px
@@ -20,6 +21,12 @@
     background-size: 100% 100%
 
     img
+      position: absolute
+      top: 0
+      left: 50%
+      transform: translateX(-50%)
+      height: 100%
+      max-width: none
       vertical-align: top
 
   &__name

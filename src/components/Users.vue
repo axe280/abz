@@ -15,7 +15,7 @@
           >
             <div class="user-item-info">
               <div class="user-item__avatar">
-                <img :src="user.photo" />
+                <img :src="user.photo" alt="" />
               </div>
               <div class="user-item__name">
                 {{ user.name }}
@@ -40,7 +40,7 @@
               <div class="user-item__contact">
                 <a 
                   :href="`tel: ${user.phone}`"
-                  :content="user.phone"
+                  :content="formatPhone(user.phone)"
                   v-tippy="{
                     followCursor: 'horizontal',
                     placement: 'bottom',
@@ -48,7 +48,7 @@
                     animation : 'shift-toward'
                   }"
                 >
-                  {{ user.phone }}
+                  {{ formatPhone(user.phone) }}
                 </a>
               </div>
             </div>
@@ -80,10 +80,26 @@ export default {
   },
 
   methods: {
+    formatPhone(phoneNumber) {
+      const partNumber1 = phoneNumber.slice(0, 4),
+            partNumber2 = phoneNumber.slice(4, 6),
+            partNumber3 = phoneNumber.slice(6, 9),
+            partNumber4 = phoneNumber.slice(9, 11),
+            partNumber5 = phoneNumber.slice(11, 13);
+
+      const completePhoneNumber = `
+        ${partNumber1} ${partNumber2} ${partNumber3} ${partNumber4} ${partNumber5}
+      `;
+
+      return completePhoneNumber;
+    },
+
     async showMore() {
       this.page = this.page + 1;
 
-      const data = await request(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}`);
+      const data = await request(`
+        https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}
+      `);
 
       if (data.success){
         data.users.forEach(user => {
@@ -104,7 +120,9 @@ export default {
       this.count = 6;
     }
   
-    const data = await request(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}`);
+    const data = await request(`
+      https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}
+    `);
 
     this.count = data.count;
     this.page = data.page;

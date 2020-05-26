@@ -23,24 +23,18 @@
                 type="text"
                 placeholder="Your name" />
             </div>
-            <div
-              v-if="!$v.name.required"
-              class="field-item__error"
-            >
-              Please fill in this field
-            </div>
-            <div
-              v-else-if="!$v.name.minLength"
-              class="field-item__error"
-            >
-              {{ `The name must be at least ${$v.name.$params.minLength.min} characters` }}
-            </div>
-            <div
-              v-else-if="!$v.name.maxLength"
-              class="field-item__error"
-            >
-              {{ `Max length is ${$v.name.$params.maxLength.max} characters` }}
-            </div>
+
+            <small class="field-item__error">
+              <template v-if="!$v.name.required">
+                Please fill in this field
+              </template>
+              <template v-else-if="!$v.name.minLength">
+                {{ `The name must be at least ${$v.name.$params.minLength.min} characters` }}
+              </template>
+              <template v-else-if="!$v.name.maxLength">
+                {{ `Max length is ${$v.name.$params.maxLength.max} characters` }}
+              </template>
+            </small>
           </label>
         </div>
 
@@ -57,30 +51,21 @@
                 type="email"
                 placeholder="Your email" />
             </div>
-            <div
-              v-if="!$v.email.required"
-              class="field-item__error"
-            >
-              Please fill in this field
-            </div>
-            <div
-              v-else-if="!$v.email.minLength"
-              class="field-item__error"
-            >
-              {{ `The email must be at least ${$v.email.$params.minLength.min} characters` }}
-            </div>
-            <div
-              v-else-if="!$v.email.maxLength"
-              class="field-item__error"
-            >
-              {{ `Max length is ${$v.email.$params.maxLength.max} characters` }}
-            </div>
-            <div
-              v-else-if="!$v.email.validateEmail"
-              class="field-item__error"
-            >
-              The email must be a valid email address
-            </div>
+
+            <small class="field-item__error">
+              <template v-if="!$v.email.required">
+                Please fill in this field
+              </template>
+              <template v-else-if="!$v.email.minLength">
+                {{ `The email must be at least ${$v.email.$params.minLength.min} characters` }}
+              </template>
+              <template v-else-if="!$v.email.maxLength">
+                {{ `Max length is ${$v.email.$params.maxLength.max} characters` }}
+              </template>
+              <template v-else-if="!$v.email.validateEmail">
+                The email must be a valid email address
+              </template>
+            </small>
           </label>
         </div>
 
@@ -98,21 +83,18 @@
                 type="tel"
                 placeholder="+380 XX XXX XX XX" />
             </div>
-            <div class="field-item__info">
+            <small class="field-item__info">
               Enter phone number in open format
-            </div>
-            <div
-              v-if="!$v.phone.required"
-              class="field-item__error"
-            >
-              Please fill in this field
-            </div>
-            <div
-              v-else-if="!$v.phone.validatePhone"
-              class="field-item__error"
-            >
-              Check your phone number
-            </div>
+            </small>
+
+            <small class="field-item__error">
+              <template v-if="!$v.phone.required">
+                Please fill in this field
+              </template>
+              <template v-else-if="!$v.phone.validatePhone">
+                Check your phone number
+              </template>
+            </small>
           </label>
         </div>
 
@@ -141,12 +123,11 @@
               </div>
             </div>
 
-            <div
-              v-if="!$v.positionName.required"
-              class="field-item__error"
-            >
-              Please choose position
-            </div>
+            <small class="field-item__error">
+              <template v-if="!$v.positionName.required">
+                Please choose position
+              </template>
+            </small>
           </div>
         </div>
 
@@ -171,24 +152,18 @@
                   placeholder="Upload your photo" />
               </div>
             </div>
-            <div
-              v-if="!$v.file.required"
-              class="field-item__error"
-            >
-              Please add your photo
-            </div>
-            <div
-              v-if="!$v.file.typeImage"
-              class="field-item__error"
-            >
-              The photo format must be jpeg/jpg type
-            </div>
-            <div
-              v-else-if="!$v.file.sizeImage"
-              class="field-item__error"
-            >
-              The photo size must not be greater than 5 Mb
-            </div>
+
+            <small class="field-item__error">
+              <template v-if="!$v.file.required">
+                Please add your photo
+              </template>
+              <template v-else-if="!$v.file.typeImage">
+                The photo format must be jpeg/jpg type
+              </template>
+              <template v-else-if="!$v.file.sizeImage">
+                The photo size must not be greater than 5 Mb
+              </template>
+            </small>
           </label>
         </div>
 
