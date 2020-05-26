@@ -71,7 +71,8 @@
 </template>
 
 <script>
-import { request } from '../api'
+import usersSortByDate from '../helpers/sortusers.js';
+import { request } from '../api';
 
 export default {
   data() {
@@ -116,7 +117,9 @@ export default {
         `);
 
         if(data.success) {
-          data.users.forEach(user => {
+          const users = usersSortByDate(data.users);
+
+          users.forEach(user => {
             this.users.push(user);
           });
 
@@ -148,7 +151,9 @@ export default {
       if(data.success) {
         this.count = data.count;
         this.page = data.page;
-        this.users = data.users;
+        
+        const users = usersSortByDate(data.users);
+        this.users = users;
       } else {
         // proccess server errors
       }
