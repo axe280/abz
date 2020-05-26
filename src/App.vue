@@ -49,7 +49,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isMenuOpen', 'getToken', 'isModalOpened', 'getFormReRenderProp', 'getUsersReRenderProp'])
+    ...mapGetters([
+      'isMenuOpen',
+      'getToken',
+      'isModalOpened',
+      'getFormReRenderProp',
+      'getUsersReRenderProp'
+    ])
   },
 
   methods: {
@@ -60,8 +66,14 @@ export default {
     const token = this.getToken;
 
     if (!token) {
-      const tokenData = await getTokenApi();
-      this.setToken(tokenData);
+      try {
+
+        const tokenData = await getTokenApi();
+        this.setToken(tokenData);
+
+      } catch(e) {
+        // proccess network errors
+      }
     }
   }
 };

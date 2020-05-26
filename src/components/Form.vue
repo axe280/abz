@@ -258,37 +258,55 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR';
       } else {
-        this.submitStatus = 'OK';
-        const formData = this.createFormData();
-        let token = this.getToken;
-        let response;
 
-        response = await sendFormApi(formData, token);
+        try {
 
-        if (response.status === 401) {
-          const newTokenData = await getTokenApi();
-          this.setToken(newTokenData);
-          token = newTokenData.token;
+          this.submitStatus = 'OK';
+          const formData = this.createFormData();
+          let token = this.getToken;
+          let response;
 
           response = await sendFormApi(formData, token);
+
+          if (response.status === 401) {
+            const newTokenData = await getTokenApi();
+            this.setToken(newTokenData);
+            token = newTokenData.token;
+
+            response = await sendFormApi(formData, token);
+          }
+
+          const responseData = await response.json();
+
+          if (responseData.success) {
+            this.forceRerenderForm();
+            this.forceRerenderUsers();
+          } else {
+            // proccess server errors
+          }
+
+          this.setModalData(responseData);
+          this.openCloseModal(true);
+
+        } catch(e) {
+          // proccess network errors
         }
-
-        const responseData = await response.json();
-
-        if (responseData.success) {
-          this.forceRerenderForm();
-          this.forceRerenderUsers();
-        }
-
-        this.setModalData(responseData);
-        this.openCloseModal(true);
       }
+
     }
   },
 
   async mounted() {
-    const positionsData = await request('https://frontend-test-assignment-api.abz.agency/api/v1/positions');
-    this.positions = positionsData.positions;
+    try {
+
+      const positionsData = await request(`
+        https://frontend-test-assignment-api.abz.agency/api/v1/positions
+      `);
+      this.positions = positionsData.positions;
+
+    } catch(e) {
+      // proccess server errors
+    }
   },
 
   validations: {

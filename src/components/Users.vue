@@ -17,12 +17,15 @@
               <div class="user-item__avatar">
                 <img :src="user.photo" alt="" />
               </div>
+
               <div class="user-item__name">
                 {{ user.name }}
               </div>
+
               <div class="user-item_position">
                 {{ user.position }}
               </div>
+
               <div class="user-item__contact">
                 <a 
                   :href="`mailto: ${user.email}`"
@@ -37,6 +40,7 @@
                   {{ user.email }}
                 </a>
               </div>
+
               <div class="user-item__contact">
                 <a 
                   :href="`tel: ${user.phone}`"
@@ -56,7 +60,7 @@
         </ul>
 
         <button 
-          :style="{ display: !showMoreButton ? 'none' : ''}"
+          :style="buttonHidden"
           @click="showMore"
           class="btn"
           type="button"
@@ -79,6 +83,14 @@ export default {
     }
   },
 
+  computed: {
+    buttonHidden() {
+      return {
+        display: !this.showMoreButton ? 'none' : ''
+      };
+    }
+  },
+
   methods: {
     formatPhone(phoneNumber) {
       const partNumber1 = phoneNumber.slice(0, 4),
@@ -95,22 +107,29 @@ export default {
     },
 
     async showMore() {
-      this.page = this.page + 1;
+      try {
 
-      const data = await request(`
-        https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}
-      `);
+        this.page = this.page + 1;
 
-      if (data.success){
-        data.users.forEach(user => {
-          this.users.push(user);
-        });
-      } else {
+        const data = await request(`
+          https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}
+        `);
+
+        if(data.success) {
+          data.users.forEach(user => {
+            this.users.push(user);
+          });
+
+          if (data.total_pages === this.page) {
+            this.showMoreButton = false;
+          }
+        } else {
+          this.page = this.page - 1;
+        }
+
+      } catch(e) {
+        // proccess server errors
         this.page = this.page - 1;
-      }
-      
-      if (data.total_pages === this.page) {
-        this.showMoreButton = false;
       }
     }
   },
@@ -120,13 +139,23 @@ export default {
       this.count = 6;
     }
   
-    const data = await request(`
-      https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}
-    `);
+    try {
 
-    this.count = data.count;
-    this.page = data.page;
-    this.users = data.users;
+      const data = await request(`
+        https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${this.page}&count=${this.count}
+      `);
+
+      if(data.success) {
+        this.count = data.count;
+        this.page = data.page;
+        this.users = data.users;
+      } else {
+        // proccess server errors
+      }
+
+    } catch(e) {
+      // proccess server errors
+    }
   }
 };
 </script>
