@@ -1,14 +1,12 @@
 .main-banner
+  position: relative
   min-height: 400px
   padding: 25px 0 30px
   display: flex
   align-items: center
   color: $text-light
   text-align: center
-  background-image: url('../img/banner-photo.jpg')
-  background-repeat: no-repeat
-  background-position: 50% 50%
-  background-size: cover
+  overflow: hidden
 
   h1
     color: $text-light
@@ -22,6 +20,31 @@
 
   .container
     width: 100%
+    position: relative
+    z-index: 3
+
+.banner-img
+  position: absolute
+  left: 50%
+  top: 0
+  height: 100%
+  z-index: 2
+  transform: translate(-50%, 0)
+
+  picture, img
+    display: block
+    max-width: none
+    height: 100%
+
+// /* Min width 520 pixels */
+@media only screen and (min-width: 520px)
+  .banner-img
+    left: 0
+    top: 50%
+    height: auto
+    width: 100%
+    transform: translate(0, -50%)
+// /* end media min width 520 pixels */
 
 // /* Min width 740 pixels */
 @media only screen and (min-width: 740px)
@@ -52,3 +75,10 @@
     p
       max-width: 530px
 // /* end media min width 960 pixels */
+
+// /* Min width 1200 pixels */
+@media only screen and (min-width: 1200px)
+  .banner-img
+    top: 20%
+    transform: translate(0, -20%)
+// /* end media min width 1200 pixels */
